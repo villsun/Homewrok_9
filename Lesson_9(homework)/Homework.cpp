@@ -171,13 +171,25 @@ Student* Students_Study_not_Well(Student students[], int size)
 	return p_students_study_well;
 }
 
+struct Man
+{
+	char last_name[50];
+	char first_name[50];
+	int age;
+	int day;
+	int month;
+	int year;
+};
+
+
+
 int main()
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 
 	// Завдання 1
 
-	int size = 2;
+	/*int size = 2;
 	Student* p_students_1 = new Student[2];
 
 	strcpy(p_students_1[0].str_student, "Kola");
@@ -235,7 +247,34 @@ int main()
 		default:
 			break;
 		}
-	} while (user_input != -1);
+	} while (user_input != -1);*/
+
+	// Завдання 2
+	int size = 3;
+	Man *p_man = new Man[size];
+
+	strcpy(p_man[0].last_name, "Hopak");
+	strcpy(p_man[0].first_name, "Ukr");
+	p_man[0].age = 324;
+	p_man[0].day = 21;
+	p_man[0].month = 12;
+	p_man[0].year = 1700;
+
+	strcpy(p_man[1].last_name, "Dodaluk");
+	strcpy(p_man[1].first_name, "Jaja");
+	p_man[1].age = 24;
+	p_man[1].day = 4;
+	p_man[1].month = 11;
+	p_man[1].year = 2000;
+
+	strcpy(p_man[2].last_name, "Rotahef");
+	strcpy(p_man[2].first_name, "Shet");
+	p_man[2].age = 30;
+	p_man[2].day = 6;
+	p_man[2].month = 7;
+	p_man[2].year = 1994;
+
+
 
 	return 0;
 }
