@@ -181,7 +181,47 @@ struct Man
 	int year;
 };
 
+void Show_People(const Man people[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << people[i].last_name << endl;
+		cout << people[i].first_name << endl;
+		cout << "Age: " << people[i].age << endl;
+		cout << people[i].day << "." << people[i].month << "." << people[i].year << endl;
+	}
+	cout << endl;
+}
 
+void Sort_by_Last_or_First_Name(Man people[], int size, bool way = true)
+{
+	if (way)
+	{
+		for (int i = 0; i < size - 1; i++)
+		{
+			for (int j = i + 1; j < size; j++)
+			{
+				if (strcmp(people[i].last_name, people[j].last_name) == 1)
+				{
+					swap(people[i], people[j]);
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < size - 1; i++)
+		{
+			for (int j = i + 1; j < size; j++)
+			{
+				if (strcmp(people[i].first_name, people[j].first_name) == 1)
+				{
+					swap(people[i], people[j]);
+				}
+			}
+		}
+	}
+}
 
 int main()
 {
@@ -273,8 +313,6 @@ int main()
 	p_man[2].day = 6;
 	p_man[2].month = 7;
 	p_man[2].year = 1994;
-
-
 
 	return 0;
 }
