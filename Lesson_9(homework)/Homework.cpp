@@ -223,6 +223,44 @@ void Sort_by_Last_or_First_Name(Man people[], int size, bool way = true)
 	}
 }
 
+int Counter_Birthday_People(const Man people[], int size, int month)
+{
+	int counter = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (people[i].month == month)
+		{
+			counter++;
+		}
+	}
+
+	return counter;
+}
+
+Man* Search_Birtday_People(Man people[], int size, int month)
+{
+	int counter_1 = Counter_Birthday_People(people, size, month);
+	if (counter_1  == 0)
+	{
+		cout << "No birtday people this month!\n";
+		return nullptr;
+	}
+
+	int counter_2 = 0;
+	Man* birtday_people = new Man[counter_1];
+
+	for (int i = 0; i < size; i++)
+	{
+		if (people[i].month == month)
+		{
+			birtday_people[counter_2] = people[i];
+			counter_2++;
+		}
+	}
+
+	return birtday_people;
+}
+
 int main()
 {
 	srand(static_cast<unsigned>(time(nullptr)));
@@ -290,6 +328,7 @@ int main()
 	} while (user_input != -1);*/
 
 	// Завдання 2
+
 	int size = 3;
 	Man *p_man = new Man[size];
 
