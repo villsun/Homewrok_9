@@ -327,6 +327,80 @@ void Edit_Year(Man people[], int new_year, int index)
 	people[index].year = new_year;
 }
 
+Man* Add_or_Delete_Person(Man people[], int &size, bool add_or_delete = 1)
+{
+	Man* p_new_size;
+	if (add_or_delete)
+	{
+		p_new_size = new Man[++size];
+		for (int i = 0; i < size-1; i++)
+		{
+			p_new_size[i] = people[i];
+		}
+
+		char str_last_name[50];
+		cin.ignore();
+		cout << "Enter last name:\n";
+		cin.getline(str_last_name, 50);
+		strcpy(p_new_size[size - 1].last_name, str_last_name);
+
+		char str_name[50];
+		cin.ignore();
+		cout << "Enter name:\n";
+		cin.getline(str_name, 50);
+		strcpy(p_new_size[size - 1].first_name, str_name);
+
+		int new_age;
+		cout << "Enter age:\n";
+		cin >> new_age;
+		p_new_size[size - 1].age = new_age;
+
+		int new_day;
+		cout << "Enter day:\n";
+		cin >> new_day;
+		p_new_size[size - 1].day = new_day;
+
+		int new_month;
+		cout << "Enter month:\n";
+		cin >> new_month;
+		p_new_size[size - 1].month = new_month;
+
+		int new_year;
+		cout << "Enter year:\n";
+		cin >> new_year;
+		p_new_size[size - 1].year = new_year;
+	}
+	else
+	{
+		int index_to_delete;
+		cout << "Enter index(from 1 to size arr)\n";
+		do
+		{
+			cin >> index_to_delete;
+			if (index_to_delete<1 || index_to_delete>=size)
+			{
+				cout << "Error!\nTry again!\n";
+			}
+		} while (index_to_delete<1 || index_to_delete>=size);
+
+		p_new_size = new Man[--size];
+		index_to_delete--;
+		for (int i = 0; i < index_to_delete; i++)
+		{
+			p_new_size[i] = people[i];
+		}
+		for (int i = index_to_delete + 1; i < size + 1; i++)
+		{
+			p_new_size[i - 1] = people[i];
+
+		}
+	}
+
+	delete[] people;
+
+	return p_new_size;
+}
+
 int main()
 {
 	srand(static_cast<unsigned>(time(nullptr)));
@@ -418,6 +492,9 @@ int main()
 	p_man[2].day = 6;
 	p_man[2].month = 7;
 	p_man[2].year = 1994;
+
+	p_man = Add_or_Delete_Person(p_man, size, 0);
+	Show_People(p_man, size);
 
 	return 0;
 }
