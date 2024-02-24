@@ -297,6 +297,36 @@ Man* Search_LastName_and_Name(Man people[], char* str_name, char* str_last_name,
 	return search_last_name_and_name;
 }
 
+void Edit_Last_Name(Man people[], char* last_name, int index)
+{
+	strcpy(people[index].last_name, last_name);
+}
+
+void Edit_First_Name(Man people[], char* str_name, int index)
+{
+	strcpy(people[index].first_name, str_name);
+}
+
+void Edit_Age(Man people[], int new_age, int index)
+{
+	people[index].age = new_age;
+}
+
+void Edit_Day(Man people[], int new_day, int index)
+{
+	people[index].day = new_day;
+}
+
+void Edit_Month(Man people[], int new_month, int index)
+{
+	people[index].month = new_month;
+}
+
+void Edit_Year(Man people[], int new_year, int index)
+{
+	people[index].year = new_year;
+}
+
 int main()
 {
 	srand(static_cast<unsigned>(time(nullptr)));
