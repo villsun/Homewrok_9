@@ -240,7 +240,7 @@ int Counter_Birthday_People(const Man people[], int size, int month)
 Man* Search_Birtday_People(Man people[], int size, int month)
 {
 	int counter_1 = Counter_Birthday_People(people, size, month);
-	if (counter_1  == 0)
+	if (counter_1 == 0)
 	{
 		cout << "No birtday people this month!\n";
 		return nullptr;
@@ -259,6 +259,42 @@ Man* Search_Birtday_People(Man people[], int size, int month)
 	}
 
 	return birtday_people;
+}
+
+int Counter_LastName_and_Name(Man people[], char* str_name, char* str_last_name, int size)
+{
+	int counter = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (strcmp(_strlwr(people[i].first_name), _strlwr(str_name)) == 0 && strcmp(_strlwr(people[i].last_name), _strlwr(str_last_name)) == 0)
+		{
+			counter++;
+		}
+	}
+
+	return counter;
+}
+
+Man* Search_LastName_and_Name(Man people[], char* str_name, char* str_last_name, int size)
+{
+	int counter_1 = Counter_LastName_and_Name(people, str_name, str_last_name, size);
+	Man* search_last_name_and_name = new Man[counter_1];
+	int counter_2 = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (strcmp(_strlwr(people[i].first_name), _strlwr(str_name)) == 0 && strcmp(_strlwr(people[i].last_name), _strlwr(str_last_name)) == 0)
+		{
+			search_last_name_and_name[counter_2] = people[i];
+			search_last_name_and_name[counter_2].first_name[0] -= ' ';
+			search_last_name_and_name[counter_2].last_name[0] -= ' ';
+			counter_2++;
+		}
+		people[i].last_name[0] -= ' ';
+		people[i].first_name[0] -= ' ';
+	}
+
+	return search_last_name_and_name;
 }
 
 int main()
@@ -330,7 +366,7 @@ int main()
 	// Завдання 2
 
 	int size = 3;
-	Man *p_man = new Man[size];
+	Man* p_man = new Man[size];
 
 	strcpy(p_man[0].last_name, "Hopak");
 	strcpy(p_man[0].first_name, "Ukr");
