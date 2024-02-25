@@ -327,13 +327,13 @@ void Edit_Year(Man people[], int new_year, int index)
 	people[index].year = new_year;
 }
 
-Man* Add_or_Delete_Person(Man people[], int &size, bool add_or_delete = 1)
+Man* Add_or_Delete_Person(Man people[], int& size, bool add_or_delete = 1)
 {
 	Man* p_new_size;
 	if (add_or_delete)
 	{
 		p_new_size = new Man[++size];
-		for (int i = 0; i < size-1; i++)
+		for (int i = 0; i < size - 1; i++)
 		{
 			p_new_size[i] = people[i];
 		}
@@ -377,11 +377,11 @@ Man* Add_or_Delete_Person(Man people[], int &size, bool add_or_delete = 1)
 		do
 		{
 			cin >> index_to_delete;
-			if (index_to_delete<1 || index_to_delete>=size)
+			if (index_to_delete < 1 || index_to_delete >= size)
 			{
 				cout << "Error!\nTry again!\n";
 			}
-		} while (index_to_delete<1 || index_to_delete>=size);
+		} while (index_to_delete < 1 || index_to_delete >= size);
 
 		p_new_size = new Man[--size];
 		index_to_delete--;
@@ -493,8 +493,140 @@ int main()
 	p_man[2].month = 7;
 	p_man[2].year = 1994;
 
-	p_man = Add_or_Delete_Person(p_man, size, 0);
-	Show_People(p_man, size);
+	int user_input;
+	int user_choice_1;
+	int counter;
+	Man* p_temp;
+	int user_input_month;
+	char str_last_name[50];
+	char str_first_name[50];
+	int user_input_choice;
+	int user_input_age;
+	int user_input_day;
+	int user_input_year;
+	do
+	{
+		cout << "What do you want to know:\n1 - Sort by last name or first name\n2 - Search Birtday people\n3 - Add person\n4 - Delete person\n5 - Search by last name and first name\n6 - Edit\nOr -1 to stop\n";
+		do
+		{
+			cin >> user_input;
+		} while (user_input < -1 || user_input>6);
+
+		if (user_input == -1)
+		{
+			break;
+		}
+		switch (user_input)
+		{
+		case 1:
+			do
+			{
+				cout << "1 - Sort by last name\n2 - Sort by first name\n";
+				cin >> user_choice_1;
+			} while (user_choice_1 < 1 || user_choice_1 > 2);
+			switch (user_choice_1)
+			{
+			case 1:
+				Sort_by_Last_or_First_Name(p_man, size);
+				break;
+			case 2:
+				Sort_by_Last_or_First_Name(p_man, size, 0);
+				break;
+			default:
+				break;
+			}
+			break;
+		case 2:
+			cout << "Enter month:\n";
+			cin >> user_input_month;
+
+			counter = Counter_Birthday_People(p_man, size, user_input_month);
+			p_temp = Search_Birtday_People(p_man, size, user_input_month);
+			Show_People(p_temp, counter);
+			delete[] p_temp;
+			break;
+		case 3:
+			p_man = Add_or_Delete_Person(p_man, size);
+			Show_People(p_man, size);
+			break;
+		case 4:
+			p_man = Add_or_Delete_Person(p_man, size, 0);
+			Show_People(p_man, size);
+			break;
+		case 5:
+			cin.ignore();
+			cout << "Enter last name:\n";
+			cin.getline(str_last_name, 50);
+
+			cin.ignore();
+			cout << "Enter first name:\n";
+			cin.getline(str_first_name, 50);
+
+			counter = Counter_LastName_and_Name(p_man, str_first_name, str_last_name, size);
+			p_temp = Search_LastName_and_Name(p_man, str_first_name, str_last_name, size);
+			Show_People(p_temp, counter);
+			delete[] p_temp;
+			break;
+		case 6:
+			do
+			{
+				cout << "Enter index(from 1 to size):\n";
+				cin >> user_choice_1;
+			} while (user_choice_1<1 || user_choice_1>size);
+
+			do
+			{
+				cout << "Enter what:\n1 - Edit last name\n2 - Edit first name\n3 - Edit age\n4 - Edit day\n5 - Edit month\n6 - Edit year\n";
+				cin >> user_input_choice;
+			} while (user_input_choice < 1 || user_input_choice>6);
+
+			switch (user_input_choice)
+			{
+			case 1:
+				cin.ignore();
+				cout << "Enter last name:\n";
+				cin.getline(str_last_name, 50);
+
+				Edit_Last_Name(p_man, str_last_name, user_choice_1 - 1);
+				break;
+			case 2:
+				cin.ignore();
+				cout << "Enter first name:\n";
+				cin.getline(str_first_name, 50);
+
+				Edit_First_Name(p_man, str_first_name, user_choice_1 - 1);
+				break;
+			case 3:
+				cout << "Enter age:\n";
+				cin >> user_input_age;
+
+				Edit_Age(p_man, user_input_age, user_choice_1 - 1);
+				break;
+			case 4:
+				cout << "Enter day:\n";
+				cin >> user_input_day;
+
+				Edit_Day(p_man, user_input_day, user_choice_1 - 1);
+				break;
+			case 5:
+				cout << "Enter month:\n";
+				cin >> user_input_month;
+
+				Edit_Month(p_man, user_input_month, user_choice_1 - 1);
+				break;
+			case 6:
+				cout << "Enter year:\n";
+				cin >> user_input_year;
+
+				Edit_Year(p_man, user_input_year, user_choice_1 - 1);
+				break;
+			default:
+				break;
+			}
+		default:
+			break;
+		}
+	} while (user_input != -1);
 
 	return 0;
 }
